@@ -1,0 +1,51 @@
+mat-card-title{
+    display: flex;
+    justify-content: flex-end;
+}
+span{
+    margin-bottom: 0.2em;
+}
+.example-card {
+    max-width: 450px;
+  }
+.canvas{
+    width: 100px;
+    height: 100px;
+}
+.showFlex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.displayFlexSecond{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flexInit{
+    display: flex;
+    justify-content: space-between;
+}
+
+.displayFlexColFlexEnd{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end !important;
+}
+
+.displayFlexCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.alignImg{
+    float: right;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+img{
+    width:100px;
+    height:40px;
+}

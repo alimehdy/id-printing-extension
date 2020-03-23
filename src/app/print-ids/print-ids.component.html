@@ -1,0 +1,94 @@
+<mat-error *ngIf="noData">No active members in this household to display id cards for them.</mat-error>
+
+<!-- <div *ngFor="let arrayOfData of array; let i=index; "> -->
+<!-- <mat-card id={{i}} class="example-card" #matCard *ngIf="!noData"> -->
+
+<mat-card id={{0}} class="example-card" #matCard *ngIf="!noData">
+  <div class="showFlex">
+    <div>
+      <img class="" src="../../assets/logo.png">
+    </div>
+    <!-- <div class="displayFlexColFlexEnd">
+      <div>
+        {{arrayOfData.ind_first_name_ar}} -  {{arrayOfData.ind_last_name_ar}}
+      </div>
+      <div>
+        <b>:الاسم</b>
+      </div>
+    </div> -->
+  </div>
+  <!-- <mat-card-header> -->
+  <div>
+    <!-- <div mat-card-avatar>
+        <mat-icon>account_circle</mat-icon>
+      </div> -->
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+
+    <!-- <mat-card-subtitle> -->
+
+    <br>
+    <div class="flexInit">
+      <div class="displayFlexCol">
+        <div>
+          <b>Name:&nbsp; {{array[1]}} {{array[2]}}</b>
+        </div>
+        <div>
+          <b>Gender:</b> {{array[3]}}
+        </div>
+        <div>
+          <b>Date of Birth:</b> {{array[4]}} 
+        </div>
+      </div>
+      <div>
+      <div class="displayFlexSecond">
+        <qrcode class="alignImg" qrdata="{{array[0]}}" [size]="55" [level]="'H'" [colordark]="color"></qrcode>
+
+      </div>
+    </div>
+      <!-- <div class="displayFlexSecond">
+        <div>
+          <qrcode class="alignImg" qrdata="{{qrtest}}" [size]="55" [level]="'H'" [colordark]="color"></qrcode>
+        </div>
+      </div> -->
+    </div>
+    <!-- </mat-card-subtitle> -->
+
+    <!-- <mat-card-subtitle><b>Name:</b> {{arrayOfData.ind_first_name_en}}  {{arrayOfData.ind_last_name_en}}</mat-card-subtitle> -->
+
+
+  </div>
+  <!-- </mat-card-header> -->
+
+  <!-- <ngx-qrcode id="1" [qrc-element-type]="elementType" [qrc-value]="3"></ngx-qrcode> -->
+  <mat-card-content class="borderLine">
+    <!-- <qrcode class="alignImg" qrdata="qrtest" [size]="65" [level]="'H'" [colordark]="color"></qrcode> -->
+
+    <div>
+      If found, please call our hotline 79 109 863.
+    </div>
+    <div dir="rtl">
+      هذه البطاقة هي خاصة ب مدير، اذا وجدت مع شخص غير صاحبها الاصلي يرجى الاتصال بنا على الرقم الساخن 863 109 79 
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-actions id="toRemove">
+
+  </mat-card-actions>
+</mat-card>&nbsp;
+<!-- </div> -->
+<button mat-raised-button color="primary" (click)="startDownload()" *ngIf="!noData">
+  <mat-icon>cloud_download</mat-icon> Export Image
+</button>&nbsp;
+<!-- <button mat-raised-button color="accent" (click)="generateAllPdf()" *ngIf="!noData">
+      <mat-icon>cloud_download</mat-icon> Export PDF
+    </button>&nbsp; -->
+<button mat-raised-button color="primary" (click)="close()" *ngIf="noData">
+  <mat-icon>close</mat-icon> Close
+</button>&nbsp;
+<!-- <button mat-raised-button color="accent" (click)="toCanvas()">
+    <mat-icon>cloud_download</mat-icon> Export Image
+  </button>&nbsp;-->
+<!-- <button mat-raised-button color="accent" (click)="save2PDFv2()">
+    <mat-icon>file_copy</mat-icon> Export PDF
+  </button>  -->

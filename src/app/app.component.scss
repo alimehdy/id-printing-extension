@@ -1,0 +1,57 @@
+mat-card-header{
+    justify-content: center;
+}
+
+.displayFlexCenter{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+      
+}
+span{
+    margin: 0.5em;
+}
+.imgStyle{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 2em;
+    width: 200px;
+    height: 80px;
+}
+.mat-card{
+    margin: 0 auto;
+    width: fit-content;
+    border-radius: 1em;
+}
+
+.displayFlexHeader{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+button{
+    width: 250px
+}
+.mat-form-field{
+    width: 250px;
+}
+.displayFlex{
+    display: flex;
+    justify-content: center;
+}
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+// .dark-overlay{
+//     background-color: rgba(0,0,0,0.7);
+//     position: fixed; 
+//     top:0;
+//     left:0;
+//     width: 100%;
+//     min-height:805px; 
+// }

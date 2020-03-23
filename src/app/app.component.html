@@ -1,0 +1,171 @@
+<div class="imgStyle">
+  <img mat-card-image src="../assets/logo.png">
+</div>
+
+
+<div *ngIf="!formGroup">
+  <mat-label>Loading form...</mat-label>
+  <mat-spinner [diameter]="100" [value]="50" class="dark-overlay"></mat-spinner>
+</div>
+<div class="displayFlexCenter">
+  <div>
+    <form [formGroup]="formGroup" *ngIf="formGroup" role="form" (onSubmit)="getIDs()">
+      <mat-card>
+        <div class="displayFlexHeader">
+          <div>
+            <h1>Printing IDs</h1>
+          </div>
+          <div>
+            <mat-slide-toggle (change)="switchTypeOfSearch($event)" formControlName="toggleType" color="primary">
+              <p *ngIf="!typeOfSearch">HEALTH SDC</p>
+              <p *ngIf="typeOfSearch">AST</p>
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <mat-card-header>
+          
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="displayFlexCenter">
+            <div>
+              <mat-form-field color="warn" appearance="fill">
+                <mat-label>Select an Org Unit</mat-label>
+                <mat-select formControlName="ou">
+                  <mat-option (click)="getPrograms(ou.id);getDistricts(ou.id);" *ngFor="let ou of finalOUArray" [value]="ou.id">
+                    {{ou.displayName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span></span>
+              <span></span>
+              <mat-form-field color="warn" appearance="fill" *ngIf="typeOfSearch">
+                <mat-label>District</mat-label>
+                <mat-select formControlName="district">
+                  <ngx-mat-select-search [placeholderLabel]="'Search Districts'"
+                    [noEntriesFoundLabel]="'No matching IDs found'" formControlName="districtSearch" ngDefaultControl>
+
+                  </ngx-mat-select-search>
+                  <mat-option (click)="displayCadaster(array.id)"
+                    *ngFor="let array of districtFilteredRecords | async; let i = index" [value]="array.id">
+                    {{array.districtName}}</mat-option>
+                </mat-select>
+                <button mat-button matSuffix mat-icon-button type="button" class="clear-button"
+                  (click)="clearSelection(); $event.stopPropagation()"
+                  [disabled]="!formGroup.controls.indSearchControl.valid">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+              <span></span>
+              <mat-form-field color="warn" appearance="fill" *ngIf="typeOfSearch">
+                <mat-label>Cadaster</mat-label>
+                <mat-select formControlName="cadaster">
+                  <ngx-mat-select-search [placeholderLabel]="'Search Cadaster'"
+                    [noEntriesFoundLabel]="'No matching IDs found'" formControlName="cadasterSearch" ngDefaultControl>
+
+                  </ngx-mat-select-search>
+                  <mat-option (click)="consoleValue(array.id);"
+                    *ngFor="let array of cadasterFilteredRecords | async; let i = index" [value]="array.id">
+                    {{array.n}}</mat-option>
+                </mat-select>
+                <button mat-button matSuffix mat-icon-button type="button" class="clear-button"
+                  (click)="clearSelection(); $event.stopPropagation()"
+                  [disabled]="!formGroup.controls.indSearchControl.valid">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <span></span>
+            <div>
+              <mat-form-field color="warn" appearance="fill">
+                <mat-label>Select a program</mat-label>
+                <mat-select formControlName="program">
+                  <mat-option (click)="getHouseholds(program.id)" *ngFor="let program of programsArray"
+                    [value]="program.id">{{program.displayName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span></span>
+              <span></span>
+              <mat-form-field color="warn" appearance="fill">
+                <mat-label>Search Name</mat-label>
+                <input matInput type = "text" formControlName="generalSearch" placeholder="Search Name">
+              </mat-form-field>
+              <span></span>
+              <!-- <mat-form-field color="warn" appearance="fill">
+              <input matInput type="text" formControlName="searchText" placeholder="Search"/>
+            </mat-form-field> -->
+
+            </div>
+            <span></span>
+            <div>
+              <!-- <mat-form-field color="warn" appearance="fill">
+                <mat-label>Search Text</mat-label>
+                <input matInput type="text" formControlName="searchText" placeholder="Search Text" />
+              </mat-form-field> -->
+              <mat-form-field color="warn" appearance="fill">
+                <mat-label>Search Household</mat-label>
+                <mat-select formControlName="household">
+                  <ngx-mat-select-search [placeholderLabel]="'Search HH IDs'"
+                    [noEntriesFoundLabel]="'No matching IDs found'" formControlName="householdSearchControl"
+                    ngDefaultControl>
+
+                  </ngx-mat-select-search>
+                  <mat-option (click)="getIndividuals(ids[0])"
+                    *ngFor="let ids of householdsFilteredRecords | async ; let i = index" [value]="ids[0]">
+                    {{ids[8]}}</mat-option>
+                </mat-select>
+                <button mat-button matSuffix mat-icon-button type="button" class="clear-button"
+                  (click)="clearSelection(); $event.stopPropagation()"
+                  [disabled]="!formGroup.controls.householdSearchControl.valid">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+              <span></span>
+              <span></span>
+              <mat-form-field color="warn" appearance="fill" *ngIf="!typeOfSearch">
+                <mat-label>Head Of Household ID</mat-label>
+                <mat-select formControlName="ind_id" multiple>
+                  <ngx-mat-select-search [placeholderLabel]="'Search IDs'"
+                    [noEntriesFoundLabel]="'No matching IDs found'" formControlName="indSearchControl" ngDefaultControl>
+
+                  </ngx-mat-select-search>
+                  <mat-option (click)="openDialog(todisplayIndArray[i])"
+                    *ngFor="let array of individualsFilteredRecords | async; let i = index" [value]="todisplayIndArray[0][0]">
+                    {{todisplayIndArray[0][1]}} {{todisplayIndArray[0][2]}}</mat-option>
+                </mat-select>
+                <button mat-button matSuffix mat-icon-button type="button" class="clear-button"
+                  (click)="clearSelection(); $event.stopPropagation()"
+                  [disabled]="!formGroup.controls.indSearchControl.valid">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            <span></span>
+
+
+            <!-- {{formGroup.valid | json}} -->
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <!-- <div class="displayFlex">
+            <div>
+              <button (click)="openDialog()" type="submit" mat-raised-button color="primary"
+                [disabled]="!formGroup.valid">
+                <mat-icon>assignment_ind</mat-icon> GET ID(s)
+              </button>
+            </div>
+          </div> 
+          <span></span> -->
+          <div *ngIf="isLoading" class="spinner">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div *ngIf="!isLoading" class="spinner">
+            {{showMsg}}
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
